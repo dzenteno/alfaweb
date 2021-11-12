@@ -68,7 +68,7 @@
       <div class="column">
           <article class="message is-dark">
             <div class="message-body">
-              <p class="is-size-7">Cantidad de alumnos permitidos: <strong>190</strong></p>
+              <p class="is-size-7">Cantidad de alumnos permitidos: <strong>{{cantidadCupos}}</strong></p>
             </div>
           </article>
         </div>
@@ -81,7 +81,7 @@
       <div class="column">
         <article class="message is-dark">
             <div class="message-body">
-              <p class="is-size-7">Cantidad total de cupos restantes: <strong>{{190 - cantidadInscritos}}</strong></p>
+              <p class="is-size-7">Cantidad total de cupos restantes: <strong>{{cantidadCupos - cantidadInscritos}}</strong></p>
             </div>
           </article>
       </div>
@@ -132,6 +132,10 @@ export default {
         fecha: new Date(),
         estado: false,
       },
+      validarCupos:{
+        mensaje: '',
+        mostrar: false
+      },
     };
   },
   methods: {
@@ -148,23 +152,23 @@ export default {
           type: "is-danger",
         });
       } else{
-        this.agregarCurso(curso);
-        this.agregarForm.nombre = "";
-        this.agregarForm.imagen = "";
-        this.agregarForm.cupos = "";
-        this.agregarForm.inscritos = "";
-        this.agregarForm.duracion = "";
-        this.agregarForm.costo = "";
-        this.agregarForm.codigo = "";
-        this.agregarForm.descripcion = "";
-        this.agregarForm.fecha = new Date();
-        this.$buefy.toast.open({
-          duration: 2000,
-          message: "Curso agregado exitosamente!",
-          position: 'is-bottom',
-          type: "is-success",
-        });
-        this.isAddModalActive = false;
+          this.agregarCurso(curso);
+          this.agregarForm.nombre = "";
+          this.agregarForm.imagen = "";
+          this.agregarForm.cupos = "";
+          this.agregarForm.inscritos = "";
+          this.agregarForm.duracion = "";
+          this.agregarForm.costo = "";
+          this.agregarForm.codigo = "";
+          this.agregarForm.descripcion = "";
+          this.agregarForm.fecha = new Date();
+          this.$buefy.toast.open({
+            duration: 2000,
+            message: "Curso agregado exitosamente!",
+            position: 'is-bottom',
+            type: "is-success",
+          });
+          this.isAddModalActive = false;
       }
 
     },
@@ -182,6 +186,15 @@ export default {
     },
 
     btnCancelar(){
+      this.agregarForm.nombre = "";
+      this.agregarForm.imagen = "";
+      this.agregarForm.cupos = "";
+      this.agregarForm.inscritos = "";
+      this.agregarForm.duracion = "";
+      this.agregarForm.costo = "";
+      this.agregarForm.codigo = "";
+      this.agregarForm.descripcion = "";
+      this.agregarForm.fecha = "";
       this.isAddModalActive = false;
     },
 
@@ -218,7 +231,7 @@ export default {
 
   computed: {
     ...mapState(["cursos"]),
-    ...mapGetters(['cursosEstadoActivo', 'cantidadInscritos']),
+    ...mapGetters(['cursosEstadoActivo', 'cantidadInscritos', 'cantidadCupos']),
   },
 };
 </script>

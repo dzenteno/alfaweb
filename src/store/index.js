@@ -66,5 +66,13 @@ export default new Vuex.Store({
       });
       return inscritos;
     },
+
+    cantidadCupos(state){
+      let totalCupos = 0;
+      state.cursos.forEach( curso => {
+        totalCupos = totalCupos + parseInt(curso.data.cupos);
+      });
+      return totalCupos;
+    },
   },
 })
